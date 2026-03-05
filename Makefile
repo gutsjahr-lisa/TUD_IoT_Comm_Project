@@ -15,6 +15,17 @@ DEVELHELP ?= 1
 # Change this to 0 show compiler invocation lines by default:
 QUIET ?= 1
 
+# 802.15.4 radio driver and dependencies
+USEMODULE += nrf802154
+USEMODULE += netdev_ieee802154_submac
+USEMODULE += event_thread
+USEMODULE += ztimer
+USEMODULE += ztimer_msec
+
+# Build as TX node with: make TX_NODE=1
+TX_NODE ?= 0
+CFLAGS += -DTX_NODE=$(TX_NODE)
+
 init:
 	git submodule update --init --recursive
 
