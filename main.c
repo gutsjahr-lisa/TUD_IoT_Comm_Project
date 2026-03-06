@@ -43,7 +43,9 @@ static void _event_cb(netdev_t *dev, netdev_event_t event)
         netdev_ieee802154_rx_info_t info;
         int len = dev->driver->recv(dev, _rx_buf, sizeof(_rx_buf), &info);
         if (len > 0) {
-            printf("%"PRIu32",%d,%u\n",
+            char node_id = (len > 9) ? (char)_rx_buf[9] : '?';
+            printf("%c,%"PRIu32",%d,%u\n",
+                   node_id,
                    ztimer_now(ZTIMER_MSEC),
                    (int8_t)info.rssi,
                    (unsigned)info.lqi);
@@ -76,7 +78,8 @@ static int _build_frame(uint8_t *buf, uint8_t seq)
     buf[3] = PAN_ID & 0xFF; buf[4] = PAN_ID >> 8;  /* dst PAN */
     buf[5] = 0xFF;  buf[6] = 0xFF;          /* dst: broadcast */
     buf[7] = TX_ADDR & 0xFF; buf[8] = TX_ADDR >> 8; /* src addr */
-    buf[9] = 'P';   buf[10] = seq;          /* payload */
+    buf[9]  = NODE_ID[0];                   /* payload: node identity */
+    buf[10] = seq;
     return 11;
 }
 
@@ -132,7 +135,7 @@ int main(void)
 #else /* RX_NODE */
     LED1_ON;
     printf("Role: RX\n");
-    printf("timestamp_ms,rssi_dBm,lqi\n");
+    printf("node_id,timestamp_ms,rssi_dBm,lqi\n");
 #endif
 
     /* Main thread sleeps; the event_thread module runs EVENT_PRIO_HIGHEST loop */

@@ -22,9 +22,11 @@ USEMODULE += event_thread
 USEMODULE += ztimer
 USEMODULE += ztimer_msec
 
-# Build as TX node with: make TX_NODE=1
+# Build as TX node with: make TX_NODE=1 NODE_ID=A
 TX_NODE ?= 0
+NODE_ID ?= A
 CFLAGS += -DTX_NODE=$(TX_NODE)
+CFLAGS += -DNODE_ID='"$(NODE_ID)"'
 CFLAGS += -DEVENT_THREAD_STACKSIZE_DEFAULT=2048
 
 init:
