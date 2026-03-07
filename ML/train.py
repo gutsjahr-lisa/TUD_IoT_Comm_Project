@@ -4,9 +4,9 @@ import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader, random_split, Subset
 import numpy as np
-from preprocessing import load_and_preprocess
-from dataset import RSSIDataset
-from models import CNN1D, ResNet1D
+from ML.preprocessing import load_and_preprocess
+from ML.dataset import RSSIDataset
+from ML.models import CNN1D, ResNet1D
 
 FRAME_SIZE = 100   # 10s bei 10pkt/s
 OVERLAP = 0.5   # 50% overlap #todo vary and test whats best

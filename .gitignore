@@ -1,4 +1,4 @@
 .vscode
 bin
 *.csv
-fake_data/
+ML/fake_data/
