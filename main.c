@@ -3,15 +3,11 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <inttypes.h>
-#include <string.h>
 
 #include "board.h"
 #include "nrf802154.h"
-#include "net/netdev.h"
-#include "net/netdev/ieee802154.h"
 #include "net/netdev/ieee802154_submac.h"
 #include "net/ieee802154.h"
-#include "event.h"
 #include "event/thread.h"
 #include "ztimer.h"
 
